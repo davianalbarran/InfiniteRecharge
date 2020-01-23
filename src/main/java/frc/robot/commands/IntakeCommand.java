@@ -72,7 +72,7 @@ public class IntakeCommand extends Command {
         if(Robot.oi.joystick.getRawButtonPressed(8)) {
            pressedForward = true;
         }
-        if(Robot.oi.joystick.getRawButton(7)) {
+        if(Robot.oi.joystick.getRawButtonPressed(7)) {
             pressedBack = true;
         }
         while(pressedForward){
@@ -97,16 +97,16 @@ public class IntakeCommand extends Command {
             isKilled = Robot.isKilled();
             while(isKilled && pressedBack) {
                 Robot.drive.robotDrive.arcadeDrive(0, 0);
-                Robot.intake.intakeMotor.set(.5);
-                Robot.intake.chuteMotor.set(.3);
+                Robot.intake.intakeMotor.set(-.5);
+                Robot.intake.chuteMotor.set(-.3);
                 if(Robot.oi.joystick.getRawButtonPressed(7)) {
                     pressedBack = false;
                 }
                 isKilled = Robot.isKilled();
             }
             Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
-            Robot.intake.intakeMotor.set(.5);
-            Robot.intake.chuteMotor.set(.3);
+            Robot.intake.intakeMotor.set(-.5);
+            Robot.intake.chuteMotor.set(-.3);
             if(Robot.oi.joystick.getRawButtonPressed(7)) {
                 pressedBack = false;
             }
