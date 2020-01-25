@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ClimbCommand;
-import frc.robot.commands.KillCommand;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
@@ -41,7 +40,8 @@ public class Robot extends TimedRobot {
   public static DriveCommand driveComm;
   public static IntakeCommand intakeComm;
   public static ClimbCommand climbComm;
-  public static KillCommand killComm;
+
+  private static boolean isKilled;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -51,6 +51,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    isKilled = false;
     
     drive = new Drive();
     intake = new Intake();
@@ -58,7 +60,6 @@ public class Robot extends TimedRobot {
 
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
-    killComm = new KillCommand();
     climbComm = new ClimbCommand();
     oi = new OI();
   }
@@ -115,9 +116,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    isKilled = false;
     intakeComm.start();
     driveComm.start();
-    killComm.start();
+    while(Robot.oi.joystick.getRawButton(12) && !intakeComm.isExecuting()) {
+      isKilled = true;
+      driveComm.cancel();
+      intakeComm.start();
+    }
   }
 
   /**
@@ -125,5 +131,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public static boolean isKilled() {
+    return isKilled;
   }
 }
