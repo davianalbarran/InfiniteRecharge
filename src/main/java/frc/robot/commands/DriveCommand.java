@@ -21,12 +21,12 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        isKilled = false;
-        Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
-        while(Robot.oi.joystick.getRawButton(12)){
-            isKilled = true;
+        if(Robot.oi.joystick.getRawButtonPressed(12)){
             Robot.drive.robotDrive.arcadeDrive(0, 0);
             intake.start();
+        }
+        if(Robot.oi.joystick.getRawButtonReleased(12)) {
+            Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
         }
     }
 
