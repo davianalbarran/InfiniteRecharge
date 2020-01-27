@@ -77,6 +77,7 @@ public class IntakeCommand extends Command {
         }
         while(pressedForward){
             isKilled = Robot.isKilled();
+            System.out.println(isKilled);
             while(isKilled && pressedForward) {
                 Robot.drive.robotDrive.arcadeDrive(0, 0);
                 Robot.intake.intakeMotor.set(.5);
