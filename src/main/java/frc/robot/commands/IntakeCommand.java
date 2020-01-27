@@ -64,55 +64,20 @@ public class IntakeCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        isExecuting = true;
-        boolean isKilled = Robot.isKilled();
-        boolean pressedForward = false;
-        boolean pressedBack = false;
         
         if(Robot.oi.joystick.getRawButtonPressed(8)) {
-           pressedForward = true;
-        }
-        if(Robot.oi.joystick.getRawButtonPressed(7)) {
-            pressedBack = true;
-        }
-        while(pressedForward){
-            isKilled = Robot.isKilled();
-            while(isKilled && pressedForward) {
-                Robot.drive.robotDrive.arcadeDrive(0, 0);
-                Robot.intake.intakeMotor.set(.5);
-                Robot.intake.chuteMotor.set(.3);
-                if(Robot.oi.joystick.getRawButtonPressed(8)) {
-                    pressedForward = false;
-                }
-                isKilled = Robot.isKilled();
-            }
-            Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
             Robot.intake.intakeMotor.set(.5);
             Robot.intake.chuteMotor.set(.3);
-            if(Robot.oi.joystick.getRawButtonPressed(8)) {
-                pressedForward = false;
-            }
         }
-        while(pressedBack){
-            isKilled = Robot.isKilled();
-            while(isKilled && pressedBack) {
-                Robot.drive.robotDrive.arcadeDrive(0, 0);
-                Robot.intake.intakeMotor.set(-.5);
-                Robot.intake.chuteMotor.set(-.3);
-                if(Robot.oi.joystick.getRawButtonPressed(7)) {
-                    pressedBack = false;
-                }
-                isKilled = Robot.isKilled();
-            }
-            Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
+        if(Robot.oi.joystick.getRawButtonPressed(7)) {
             Robot.intake.intakeMotor.set(-.5);
             Robot.intake.chuteMotor.set(-.3);
-            if(Robot.oi.joystick.getRawButtonPressed(7)) {
-                pressedBack = false;
-            }
         }
-        Robot.intake.intakeMotor.set(0);
-        Robot.intake.chuteMotor.set(0);
+
+        if(Robot.oi.joystick.getRawButtonReleased(8) || Robot.oi.joystick.getRawButtonReleased(7)) {
+            Robot.intake.intakeMotor.set(0);
+            Robot.intake.chuteMotor.set(0);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
