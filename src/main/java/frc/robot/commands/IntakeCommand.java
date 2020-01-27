@@ -64,12 +64,11 @@ public class IntakeCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        
+
         if(Robot.oi.joystick.getRawButtonPressed(8)) {
             Robot.intake.intakeMotor.set(.5);
             Robot.intake.chuteMotor.set(.3);
         }
-       
         if(Robot.oi.joystick.getRawButtonPressed(7)) {
             Robot.intake.intakeMotor.set(-.5);
             Robot.intake.chuteMotor.set(-.3);
