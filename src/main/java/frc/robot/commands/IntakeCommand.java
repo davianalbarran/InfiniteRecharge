@@ -66,30 +66,10 @@ public class IntakeCommand extends Command {
     protected void execute() {
         
         if(Robot.oi.joystick.getRawButtonPressed(8)) {
-<<<<<<< HEAD
-           pressedForward = true;
-        }
-        if(Robot.oi.joystick.getRawButtonPressed(7)) {
-            pressedBack = true;
-        }
-        while(pressedForward){
-            isKilled = Robot.isKilled();
-            System.out.println(isKilled);
-            while(isKilled && pressedForward) {
-                Robot.drive.robotDrive.arcadeDrive(0, 0);
-                Robot.intake.intakeMotor.set(.5);
-                Robot.intake.chuteMotor.set(.3);
-                if(Robot.oi.joystick.getRawButtonPressed(8)) {
-                    pressedForward = false;
-                }
-                isKilled = Robot.isKilled();
-            }
-            Robot.drive.robotDrive.arcadeDrive(Robot.oi.joystick.getY()*-1, Robot.oi.joystick.getZ());
-=======
->>>>>>> b9af7e1dee89dcb572cf07255971ce8677afa12e
             Robot.intake.intakeMotor.set(.5);
             Robot.intake.chuteMotor.set(.3);
         }
+       
         if(Robot.oi.joystick.getRawButtonPressed(7)) {
             Robot.intake.intakeMotor.set(-.5);
             Robot.intake.chuteMotor.set(-.3);

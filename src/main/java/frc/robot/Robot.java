@@ -41,26 +41,16 @@ public class Robot extends TimedRobot {
   public static IntakeCommand intakeComm;
   public static ClimbCommand climbComm;
 
-<<<<<<< HEAD
-  private static boolean isKilled;
-  Pixy pixy;
-  boolean x;
-	boolean y;
-  boolean z;
-  int count = 0;
-  int signature;
-  PixyController p;
-
-=======
->>>>>>> b9af7e1dee89dcb572cf07255971ce8677afa12e
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
   public void robotInit() {
+    /*
     pixy = new Pixy();
     p = new PixyController(pixy);
+    */
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -103,8 +93,10 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    /*
     pixy.pixyReset();
-		count = 0;
+    count = 0;
+    */
   }
 
   /**
@@ -129,22 +121,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
-
-
     Scheduler.getInstance().run();
     intakeComm.start();
     driveComm.start();
-<<<<<<< HEAD
-    System.out.println("You're outside the kill loop");
-    while(Robot.oi.joystick.getRawButton(12)) {
-      System.out.println("You're in kill loop");
-      isKilled = true;
-      driveComm.cancel();
-      intakeComm.start();
-    }
-=======
->>>>>>> b9af7e1dee89dcb572cf07255971ce8677afa12e
   }
 
   /**
