@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -18,6 +17,7 @@ import frc.robot.commands.ClimbCommand;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.ShooterSub;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
   public static Drive drive;
   public static Intake intake;
   public static Climb climb;
+  public static ShooterSub shooter;
   public static OI oi;
 
   public static DriveCommand driveComm;
@@ -58,6 +59,8 @@ public class Robot extends TimedRobot {
     drive = new Drive();
     intake = new Intake();
     climb = new Climb();
+    shooter = new ShooterSub();
+
 
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
