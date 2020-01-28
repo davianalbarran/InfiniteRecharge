@@ -10,9 +10,11 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.commands.Shooter;
 
-public class ShooterSub extends SubsystemBase {
+public class ShooterSub extends Subsystem {
   /**
    * Creates a new ShooterSub.
    */
@@ -22,6 +24,13 @@ public class ShooterSub extends SubsystemBase {
   public ShooterSub() {
     shooterMotor = new CANSparkMax(7, MotorType.kBrushless);
   }
+
+  @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new Shooter());
+    }
 
   @Override
   public void periodic() {

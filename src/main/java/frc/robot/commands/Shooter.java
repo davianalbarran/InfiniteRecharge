@@ -7,16 +7,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Shooter extends CommandBase {
+public class Shooter extends Command {
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.shooter);
+    requires(Robot.shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -28,21 +28,29 @@ public class Shooter extends CommandBase {
   @Override
   public void execute() {
     if(Robot.oi.joystick.getRawButtonPressed(1)) {
-      Robot.shooter.shooterMotor.set(1);
+      Robot.shooter.shooterMotor.set(-1);
     }
     if(Robot.oi.joystick.getRawButtonReleased(1)) {
       Robot.shooter.shooterMotor.set(0);
     }
   }
-
-  // Called once the command ends or is interrupted.
+// Make this return true when this Command no longer needs to run execute()
   @Override
-  public void end(boolean interrupted) {
+  protected boolean isFinished() {
+      return false;
   }
 
-  // Returns true when the command should end.
+  // Called once after isFinished returns true
   @Override
-  public boolean isFinished() {
-    return false;
+  protected void end() {
+      Robot.shooter.shooterMotor.set(0);
   }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+    Robot.shooter.shooterMotor.set(0);
+  }
+
 }
