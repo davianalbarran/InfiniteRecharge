@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.Shooter;
+import frc.robot.commands.ChuteCommand;
 import frc.robot.commands.ClimbCommand;
+import frc.robot.subsystems.Chute;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
@@ -37,11 +39,14 @@ public class Robot extends TimedRobot {
   public static Intake intake;
   public static Climb climb;
   public static ShooterSub shooter;
+  public static Chute chute;
   public static OI oi;
 
   public static DriveCommand driveComm;
   public static IntakeCommand intakeComm;
   public static ClimbCommand climbComm;
+  public static Shooter shooterCom;
+  public static ChuteCommand chuteCom;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -61,11 +66,14 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     climb = new Climb();
     shooter = new ShooterSub();
-
+    chute = new Chute();
 
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
     climbComm = new ClimbCommand();
+    shooterCom = new Shooter();
+    chuteCom = new ChuteCommand();
+
     oi = new OI();
   }
 
@@ -128,6 +136,8 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     intakeComm.start();
     driveComm.start();
+    shooterCom.start();
+    chuteCom.start();
   }
 
   /**
