@@ -6,6 +6,7 @@ import frc.robot.Robot;
 public class DriveCommand extends Command {
 
     private static boolean isKilled;
+    private IntakeCommand intake;
 
     public DriveCommand(){
         requires(Robot.drive);
@@ -14,7 +15,7 @@ public class DriveCommand extends Command {
     @Override
     protected void initialize() {
         isKilled = false;
-        System.out.println("Drive Initialized");
+        intake = new IntakeCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run
