@@ -9,6 +9,7 @@ import frc.robot.subsystems.*;
 public class DriveCommand implements Command {
 
     private static boolean isKilled;
+    private IntakeCommand intake;
 
     @Override
     public Set<Subsystem> getRequirements() {
@@ -21,7 +22,7 @@ public class DriveCommand implements Command {
     @Override
     public void initialize() {
         isKilled = false;
-        System.out.println("Drive Initialized");
+        intake = new IntakeCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run

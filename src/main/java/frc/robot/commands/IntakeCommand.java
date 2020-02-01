@@ -39,55 +39,56 @@ public class IntakeCommand implements Command{
     }
 
     // Called just before this Command runs the first time
-    @Override
-    public void initialize() {
-        kP = 0.09; 
-        kI = 1e-4;
-        kD = 0.1; 
-        kIz = 0; 
-        kFF = 0; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
-
-        Robot.intake.intakePID.setP(kP);
-        Robot.intake.intakePID.setI(kI);
-        Robot.intake.intakePID.setD(kD);
-        Robot.intake.intakePID.setIZone(kIz);
-        Robot.intake.intakePID.setFF(kFF);
-        Robot.intake.intakePID.setOutputRange(kMinOutput, kMaxOutput);
-
-        Robot.intake.intakeMotor.set(0);
-        isFrontPressed = false;
-        isBackPressed = false;
-        System.out.println("Intake Initialized");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    public void execute() {
-
-        if(Robot.oi.joystick.getRawButtonPressed(8)) {
-            isFrontPressed = true;
-        }
-        if(Robot.oi.joystick.getRawButtonPressed(7)) {
-            isBackPressed = true;
-        }
-
-        while(isFrontPressed) {
-            Robot.intake.intakeMotor.set(.5);
-            if(Robot.oi.joystick.getRawButtonPressed(8)) {
-                isFrontPressed = false;
-            }
-        }
-
-        while(isBackPressed) {
-            Robot.intake.intakeMotor.set(-.5);
-            if(Robot.oi.joystick.getRawButtonPressed(7)) {
-                isBackPressed = false;
-            }
-        }
-        Robot.intake.intakeMotor.set(0);
-    }
+      // Called just before this Command runs the first time
+      @Override
+      public void initialize() {
+          kP = 0.09; 
+          kI = 1e-4;
+          kD = 0.1; 
+          kIz = 0; 
+          kFF = 0; 
+          kMaxOutput = 1; 
+          kMinOutput = -1;
+  
+          Robot.intake.intakePID.setP(kP);
+          Robot.intake.intakePID.setI(kI);
+          Robot.intake.intakePID.setD(kD);
+          Robot.intake.intakePID.setIZone(kIz);
+          Robot.intake.intakePID.setFF(kFF);
+          Robot.intake.intakePID.setOutputRange(kMinOutput, kMaxOutput);
+  
+          Robot.intake.intakeMotor.set(0);
+          isFrontPressed = false;
+          isBackPressed = false;
+          System.out.println("Intake Initialized");
+      }
+  
+      // Called repeatedly when this Command is scheduled to run
+      @Override
+      public void execute() {
+  
+          if(Robot.oi.joystick.getRawButtonPressed(8)) {
+              isFrontPressed = true;
+          }
+          if(Robot.oi.joystick.getRawButtonPressed(7)) {
+              isBackPressed = true;
+          }
+  
+          while(isFrontPressed) {
+              Robot.intake.intakeMotor.set(.5);
+              if(Robot.oi.joystick.getRawButtonPressed(8)) {
+                  isFrontPressed = false;
+              }
+          }
+  
+          while(isBackPressed) {
+              Robot.intake.intakeMotor.set(-.5);
+              if(Robot.oi.joystick.getRawButtonPressed(7)) {
+                  isBackPressed = false;
+              }
+          }
+          Robot.intake.intakeMotor.set(0);
+      }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override

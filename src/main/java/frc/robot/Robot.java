@@ -13,17 +13,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.Shooter;
-import frc.robot.commands.ChuteCommand;
-import frc.robot.commands.ClimbCommand;
-import frc.robot.subsystems.Chute;
-import frc.robot.subsystems.Climb;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ShooterSub;
-
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -41,8 +32,8 @@ public class Robot extends TimedRobot {
   public static Intake intake;
   public static Climb climb;
   public static ShooterSub shooter;
-  public static Chute chute;
   public static OI oi;
+  public static Chute chute;
 
   public static DriveCommand driveComm;
   public static IntakeCommand intakeComm;
@@ -69,7 +60,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     climb = new Climb();
     shooter = new ShooterSub();
-    chute = new Chute();
+
 
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
