@@ -1,3 +1,4 @@
+  
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.Shooter;
@@ -45,8 +47,9 @@ public class Robot extends TimedRobot {
   public static DriveCommand driveComm;
   public static IntakeCommand intakeComm;
   public static ClimbCommand climbComm;
-  public static Shooter shooterCom;
-  public static ChuteCommand chuteCom;
+  public static Shooter shooterComm;
+  public static ChuteCommand chuteComm;
+  public static ParallelCommandGroup mainCommandGroup;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -71,8 +74,9 @@ public class Robot extends TimedRobot {
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
     climbComm = new ClimbCommand();
-    shooterCom = new Shooter();
-    chuteCom = new ChuteCommand();
+    shooterComm = new Shooter();
+    chuteComm = new ChuteCommand();
+    mainCommandGroup = new ParallelCommandGroup(driveComm, intakeComm, climbComm, shooterComm, chuteComm);
 
     oi = new OI();
   }
@@ -134,10 +138,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    intakeComm.start();
-    driveComm.start();
-    shooterCom.start();
-    chuteCom.start();
+    mainCommandGroup.execute();
   }
 
   /**

@@ -7,22 +7,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Robot;
+import frc.robot.subsystems.Chute;
+import java.util.Set;
+import java.util.HashSet;
 
-public class ChuteCommand extends Command {
+public class ChuteCommand implements Command {
   private boolean isFrontPressed;
   private boolean isBackPressed;
 
-  public ChuteCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.chute);
+  @Override
+  public Set<Subsystem> getRequirements() {
+      // TODO Auto-generated method stub
+      Set<Subsystem> s = new HashSet<Subsystem>(){{
+          add(new Chute());
+      }};
+      return s;
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     Robot.chute.chuteMotor.set(0);
     isFrontPressed = false;
     isBackPressed = false;
@@ -32,7 +38,7 @@ public class ChuteCommand extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     isFrontPressed = Robot.oi.joystick.getRawButtonReleased(10);
     isBackPressed = Robot.oi.joystick.getRawButton(9);
     if(isBackPressed) {
@@ -53,19 +59,19 @@ public class ChuteCommand extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
-  @Override
-  protected void end() {
+
+  public void end() {
     Robot.chute.chuteMotor.set(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
+ 
   protected void interrupted() {
     Robot.chute.chuteMotor.set(0);
   }

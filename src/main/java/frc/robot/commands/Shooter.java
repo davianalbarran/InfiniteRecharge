@@ -7,16 +7,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Robot;
+import frc.robot.subsystems.ShooterSub;
 
-public class Shooter extends Command {
+import java.util.Set;
+import java.util.HashSet;
+public class Shooter implements Command {
   /**
    * Creates a new Shooter.
    */
-  public Shooter() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    requires(Robot.shooter);
+  @Override
+  public Set<Subsystem> getRequirements() {
+      // TODO Auto-generated method stub
+      Set<Subsystem> s = new HashSet<Subsystem>(){{
+          add(new ShooterSub());
+      }};
+      return s;
   }
 
   // Called when the command is initially scheduled.
@@ -36,21 +43,8 @@ public class Shooter extends Command {
   }
 // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
       return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-      Robot.shooter.shooterMotor.set(0);
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    Robot.shooter.shooterMotor.set(0);
   }
 
 }

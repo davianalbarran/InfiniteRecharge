@@ -12,13 +12,12 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.ChuteCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class Chute extends Subsystem {
+public class Chute implements Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -33,10 +32,4 @@ public class Chute extends Subsystem {
     chuteMotor.setInverted(true);
   }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new ChuteCommand());
-  }
 }
