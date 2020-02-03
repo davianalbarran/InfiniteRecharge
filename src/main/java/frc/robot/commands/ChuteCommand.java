@@ -9,19 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Robot;
-import frc.robot.subsystems.Chute;
 import java.util.Set;
 import java.util.HashSet;
 
 public class ChuteCommand implements Command {
-  private boolean isFrontPressed;
-  private boolean isBackPressed;
 
   @Override
   public Set<Subsystem> getRequirements() {
       // TODO Auto-generated method stub
       Set<Subsystem> s = new HashSet<Subsystem>(){{
-          add(new Chute());
+        add(Robot.chute);
       }};
       return s;
   }
@@ -30,29 +27,21 @@ public class ChuteCommand implements Command {
   @Override
   public void initialize() {
     Robot.chute.chuteMotor.set(0);
-    isFrontPressed = false;
-    isBackPressed = false;
-
     System.out.println("Chute Initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    isFrontPressed = Robot.oi.joystick.getRawButtonReleased(10);
-    isBackPressed = Robot.oi.joystick.getRawButton(9);
-    if(isBackPressed) {
-      Robot.chute.chuteMotor.set(-.3);
+    System.out.println("Check E");
+    if(Robot.oi.joystick.getRawButtonPressed(5)) {
+      Robot.chute.chuteMotor.set(.5);
     }
-    else {
-      Robot.chute.chuteMotor.set(0);
+    if(Robot.oi.joystick.getRawButtonPressed(3)) {
+      Robot.chute.chuteMotor.set(-.5);
     }
-
-    if(isFrontPressed) {
-      Robot.chute.chuteMotor.set(.3);
-    }
-    else {
-      Robot.chute.chuteMotor.set(0);
+    if(Robot.oi.joystick.getRawButtonReleased(5) || Robot.oi.joystick.getRawButtonReleased(3)) {
+    Robot.chute.chuteMotor.set(0);
     }
 
   }
@@ -61,18 +50,5 @@ public class ChuteCommand implements Command {
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  // Called once after isFinished returns true
-
-  public void end() {
-    Robot.chute.chuteMotor.set(0);
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
- 
-  protected void interrupted() {
-    Robot.chute.chuteMotor.set(0);
   }
 }

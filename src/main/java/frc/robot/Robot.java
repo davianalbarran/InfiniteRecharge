@@ -60,15 +60,16 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     climb = new Climb();
     shooter = new ShooterSub();
+    chute = new Chute();
 
 
     driveComm = new DriveCommand();
     intakeComm = new IntakeCommand();
+
     climbComm = new ClimbCommand();
     shooterComm = new Shooter();
     chuteComm = new ChuteCommand();
     mainCommandGroup = new ParallelCommandGroup(driveComm, intakeComm, climbComm, shooterComm, chuteComm);
-
     oi = new OI();
   }
 
@@ -129,6 +130,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    mainCommandGroup.schedule();
     mainCommandGroup.execute();
   }
 

@@ -9,25 +9,25 @@ import frc.robot.subsystems.*;
 public class DriveCommand implements Command {
 
     private static boolean isKilled;
-    private IntakeCommand intake;
 
     @Override
     public Set<Subsystem> getRequirements() {
         // TODO Auto-generated method stub
         Set<Subsystem> s = new HashSet<Subsystem>(){{
-            add(new Drive());
+            add(Robot.drive);
         }};
         return s;
     }
     @Override
     public void initialize() {
+        
         isKilled = false;
-        intake = new IntakeCommand();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        System.out.println("Check A");
         isKilled = Robot.oi.joystick.getRawButton(12);
         if(isKilled){
             Robot.drive.robotDrive.arcadeDrive(0, 0);

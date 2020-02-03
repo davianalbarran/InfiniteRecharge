@@ -21,7 +21,7 @@ public class Shooter implements Command {
   public Set<Subsystem> getRequirements() {
       // TODO Auto-generated method stub
       Set<Subsystem> s = new HashSet<Subsystem>(){{
-          add(new ShooterSub());
+          add(Robot.shooter);
       }};
       return s;
   }
@@ -34,6 +34,7 @@ public class Shooter implements Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Check D");
     if(Robot.oi.joystick.getRawButtonPressed(1)) {
       Robot.shooter.shooterMotor.set(-1);
     }

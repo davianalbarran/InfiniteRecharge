@@ -8,9 +8,8 @@ public class Pixy {
 	SerialPort pixy;
 	Port port = Port.kMXP;
 	PixyPacket[] packets;
-	PixyException pExc;
 	String print;
-
+	PixyException pExc;
 	public Pixy() {
 		pixy = new SerialPort(19200, port);
 		pixy.setReadBufferSize(14);

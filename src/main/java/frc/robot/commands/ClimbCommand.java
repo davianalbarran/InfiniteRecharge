@@ -12,7 +12,6 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Robot;
-import frc.robot.subsystems.Climb;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -28,7 +27,7 @@ public class ClimbCommand implements Command {
         public Set<Subsystem> getRequirements() {
             // TODO Auto-generated method stub
             Set<Subsystem> s = new HashSet<Subsystem>(){{
-                add(new Climb());
+                add(Robot.climb);
             }};
             return s;
         }
@@ -37,60 +36,13 @@ public class ClimbCommand implements Command {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        kP = 0.09; 
-        kI = 1e-4;
-        kD = 0.1; 
-        kIz = 0; 
-        kFF = 0; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
-
-        Robot.climb.climbPID.setP(kP);
-        Robot.climb.climbPID.setI(kI);
-        Robot.climb.climbPID.setD(kD);
-        Robot.climb.climbPID.setIZone(kIz);
-        Robot.climb.climbPID.setFF(kFF);
-        Robot.climb.climbPID.setOutputRange(kMinOutput, kMaxOutput);
-
-        Robot.climb.climbMotor.set(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        boolean pressed = false;
-        boolean reversePressed = false;
-        if(Robot.oi.joystick.getRawButtonPressed(11)){
-            Robot.climb.climbMotor.setInverted(true);
-            Robot.climb.climbMotor.set(5);
-            reversePressed  = true;
-        }
-        //Temporary ugly code, turned them into toggle switches for testing individually.
-
-        while(reversePressed){
-            Robot.climb.climbMotor.set(.5);
-            if(Robot.oi.joystick.getRawButtonPressed(10)) {
-                reversePressed = false;
-             }
-          
-        }
-
-          if(Robot.oi.joystick.getRawButtonPressed(10)){
-            Robot.climb.climbMotor.setInverted(false);
-            Robot.climb.climbMotor.set(5);
-            pressed = true;
-            
-          }
-
-          while(pressed){
-            Robot.climb.climbMotor.set(.5);
-            if(Robot.oi.joystick.getRawButtonPressed(10)) {
-                pressed = false;
-             }
-        }
-        Robot.climb.climbMotor.set(0);
-
-        }
+        System.out.println("Check C");
+    }
     
 
     // Make this return true when this Command no longer needs to run execute()

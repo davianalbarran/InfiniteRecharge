@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj2.command.*;
 import java.util.Set;
 import java.util.HashSet;
 import frc.robot.Robot;
-import frc.robot.subsystems.Intake;
-
 
 /**
  *
@@ -33,7 +31,7 @@ public class IntakeCommand implements Command{
     public Set<Subsystem> getRequirements() {
         // TODO Auto-generated method stub
         Set<Subsystem> s = new HashSet<Subsystem>(){{
-            add(new Intake());
+            add(Robot.intake);
         }};
         return s;
     }
@@ -42,44 +40,31 @@ public class IntakeCommand implements Command{
       // Called just before this Command runs the first time
       @Override
       public void initialize() {
-          kP = 0.09; 
-          kI = 1e-4;
-          kD = 0.1; 
-          kIz = 0; 
-          kFF = 0; 
-          kMaxOutput = 1; 
-          kMinOutput = -1;
-  
-          Robot.intake.intakePID.setP(kP);
-          Robot.intake.intakePID.setI(kI);
-          Robot.intake.intakePID.setD(kD);
-          Robot.intake.intakePID.setIZone(kIz);
-          Robot.intake.intakePID.setFF(kFF);
-          Robot.intake.intakePID.setOutputRange(kMinOutput, kMaxOutput);
-  
-          Robot.intake.intakeMotor.set(0);
-          isFrontPressed = false;
-          isBackPressed = false;
-          System.out.println("Intake Initialized");
+        Robot.intake.intakeMotor.set(0);
+        System.out.println("Intake Initialized");
       }
   
       // Called repeatedly when this Command is scheduled to run
       @Override
       public void execute() {
-  
+        System.out.println("Check B");
+        if(Robot.oi.joystick.getRawButtonPressed(8)) {
+            Robot.intake.intakeMotor.set(.5);
+        }
+        if(Robot.oi.joystick.getRawButtonPressed(7)) {
+            Robot.intake.intakeMotor.set(-.5);
+        }
+        if(Robot.oi.joystick.getRawButtonReleased(8) || Robot.oi.joystick.getRawButtonReleased(7)) {
+            Robot.intake.intakeMotor.set(0);
+        }
+        /*
+        while(isFrontPressed) {
+          System.out.println("In while loop.");
+          Robot.intake.intakeMotor.set(.5);
           if(Robot.oi.joystick.getRawButtonPressed(8)) {
-              isFrontPressed = true;
+              isFrontPressed = false;
           }
-          if(Robot.oi.joystick.getRawButtonPressed(7)) {
-              isBackPressed = true;
-          }
-  
-          while(isFrontPressed) {
-              Robot.intake.intakeMotor.set(.5);
-              if(Robot.oi.joystick.getRawButtonPressed(8)) {
-                  isFrontPressed = false;
-              }
-          }
+        }
   
           while(isBackPressed) {
               Robot.intake.intakeMotor.set(-.5);
@@ -88,6 +73,7 @@ public class IntakeCommand implements Command{
               }
           }
           Robot.intake.intakeMotor.set(0);
+          */
       }
 
     // Make this return true when this Command no longer needs to run execute()
